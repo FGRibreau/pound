@@ -1,0 +1,18 @@
+{
+  "author": "",
+  "name": "example",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FGRibreau/pound.git"
+  },
+  "dependencies": {
+    "express": "~2.5.10",
+    "jade": "~0.26.1"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
