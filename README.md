@@ -6,13 +6,13 @@ Higher interface for Piler - The Awesome Asset Manager for Node.js.
 
 Npm
 ----
-
     npm install pound
 
-Simple usage
+
+Basic usage
 ------------
 
-###### example/server_simple.js
+**example/server_simple.js**
 ```javascript
 var express     = require('express')
 ,   pound       = require('pound')
@@ -76,7 +76,7 @@ app.get('/', render('app'));
 app.listen(8080, function(){console.log('Express listening on', app.address().port);});
 ```
 
-###### example/view/home.jade
+**example/view/home.jade**
 ```jade
 !!! 5
 html
@@ -91,7 +91,7 @@ html
     !{renderScriptTags("home")}
 ```
 
-###### example/view/app.jade
+**example/view/app.jade**
 ```jade
 !!! 5
 html
@@ -110,7 +110,7 @@ html
 Recommended usage
 -----------------
 
-###### example/server.js
+**example/server.js**
 ```javascript
 var express = require('express'),
 assets      = require('./assets'),
@@ -141,7 +141,7 @@ app.get('/app', render('app'));
 app.listen(8080, function(){console.log('Express listening on', app.address().port);});
 ```
 
-###### example/assets.js
+**example/assets.js**
 ```javascript
 /**
 * Specify the assets
