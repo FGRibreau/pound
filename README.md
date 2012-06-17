@@ -1,7 +1,7 @@
 Pound [![Build Status](https://secure.travis-ci.org/FGRibreau/pound.png)](http://travis-ci.org/FGRibreau/pound)
 ==========
 
-Higher interface for Piler - The Awesome Asset Manager for Node.js.
+High-level interface for Piler - The Awesome Asset Manager for Node.js.
 **Pound leverage Piler** in order to allow you to think of **assets in terms of packages**.
 
 Npm
