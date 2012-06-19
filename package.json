@@ -2,8 +2,14 @@
   "author": "Francois-Guillaume Ribreau <npm@fgribreau.com> (http://twitter.com/FGRibreau)",
   "name": "pound",
   "description": "High-level interface for Piler - The Awesome Asset Manager for Node.js",
-  "keywords": ["piler","asset", "express","public", "resource"],
-  "version": "0.0.1",
+  "keywords": [
+    "piler",
+    "asset",
+    "express",
+    "public",
+    "resource"
+  ],
+  "version": "0.0.2",
   "homepage": "https://fgribreau.github.com/pound/",
   "repository": {
     "type": "git",
@@ -15,7 +21,8 @@
   },
   "dependencies": {
     "piler": "~0.3.4",
-    "lodash": "~0.3.2"
+    "lodash": "~0.3.2",
+    "jade": "~0.26.1"
   },
   "devDependencies": {
     "nodeunit": "~0.7.4"

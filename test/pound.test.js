@@ -43,5 +43,21 @@ module.exports = {
     t.deepEqual(this.P.assets.js.app_pro, [ '$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', { ns: {} }, '$js/pro_features' ]);
 
     t.done();
+  },
+
+  defineAssetExtend_empty:function(t){
+    defineAsset({ name: 'app'}, {
+      js: ['$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', {ns: {}}],
+      css: [ undefined, '$css/ok']
+    });
+
+    defineAsset({ name: 'app_pro', extend:'app'}, {
+    });
+
+    t.deepEqual(this.P.assets.js.app_pro, [ '$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', { ns: {} } ]);
+    t.deepEqual(this.P.assets.css.app_pro, [ '$css/ok' ]);
+
+
+    t.done();
   }
 };
