@@ -4,6 +4,8 @@ Pound [![Build Status](https://secure.travis-ci.org/FGRibreau/pound.png)](http:/
 High-level interface for Piler - The Awesome Asset Manager for Node.js.
 **Pound leverage Piler** in order to allow you to think of **assets in terms of packages**.
 
+Pound supports **Express 2 and 3**.
+
 Npm
 ----
     npm install pound

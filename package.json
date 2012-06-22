@@ -9,7 +9,7 @@
     "public",
     "resource"
   ],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://fgribreau.github.com/pound/",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "test": "node node_modules/nodeunit/bin/nodeunit test/*.js"
   },
   "dependencies": {
-    "piler": "~0.3.4",
+    "piler": "~0.3.6",
     "lodash": "~0.3.2",
     "jade": "~0.26.1"
   },
