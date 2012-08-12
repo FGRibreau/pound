@@ -1,7 +1,7 @@
 {
   "author": "Francois-Guillaume Ribreau <npm@fgribreau.com> (http://twitter.com/FGRibreau)",
   "name": "pound",
-  "description": "High-level interface for Piler - The Awesome Asset Manager for Node.js",
+  "description": "High-level interface for Piler - The Awesome Asset Manager for NodeJ",
   "keywords": [
     "piler",
     "asset",
