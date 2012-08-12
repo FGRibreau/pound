@@ -22,7 +22,7 @@
   "dependencies": {
     "piler": "git+https://github.com/FGRibreau/piler.git",
     "lodash": "~0.3.2",
-    "jade": "~0.26.1"
+    "jade": "~0.27.2"
   },
   "devDependencies": {
     "nodeunit": "~0.7.4"
