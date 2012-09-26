@@ -36,7 +36,7 @@ defineAsset({name:'app', extend:'home'}, {
   ]
 });
 
-var app =  express.createServer();
+var app =  express();
 
 app.configure(function(){
     app.set('views', __dirname + '/views');
@@ -57,4 +57,4 @@ function render(view) {return function(req, res) {res.render(view);};}
 app.get('/', render('home'));
 app.get('/', render('app'));
 
-app.listen(8080, function(){console.log('Express listening on', app.address().port);});
+app.listen(8080, function(){console.log('Express listening on 8080');});
