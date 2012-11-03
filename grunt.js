@@ -1,4 +1,9 @@
+var fs = require('fs');
 module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-shell');
+
+  var jshintFile = fs.readFileSync(__dirname + '/.jshintrc').toString('utf8');
+  var jshintConf = JSON.parse(jshintFile);
 
   // Project configuration.
   grunt.initConfig({
@@ -6,43 +11,23 @@ module.exports = function(grunt) {
       all: ['*.js', 'lib/**/*.js', 'example/*.js', 'test/**/*.js']
     },
 
-    jshint: {
-      options: {
-        curly: true,
-        es5: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        laxcomma: true,
-        newcap: false,
-        noarg: true,
-        sub: true,
-        undef: true,
-        eqnull: true,
-        browser: false
-      },
-      globals: {
-        module: true,
-        require:true,
-        exports:true,
-        console:true,
-        __dirname:true,
-        process:true,
-        setTimeout:true,
-        clearTimeout:true
-      }
-    },
+    jshint: jshintConf,
 
     watch: {
       files: ['<config:lint.all>'],
-      tasks: 'lint test'
+      tasks: 'lint shell:test'
     },
 
-    test: {
-      all: ['test/**/*.js']
+    shell: {
+      test:{//--reporter minimal
+        command: './node_modules/nodeunit/bin/nodeunit test/*.js',
+        stdout: true,
+        stderr: true,
+        failOnError:true,
+        warnOnError: true
+      }
     }
   });
 
-  // Default task.
-  grunt.registerTask('default', 'lint qunit concat min');
+  grunt.registerTask('test', 'shell:test');
 };
