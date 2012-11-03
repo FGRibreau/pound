@@ -14,7 +14,8 @@ module.exports = {
 
   precompile: function(t) {
     defineAsset({ name: 'app'}, {
-      js: [__dirname+'/precompile.test.js', __dirname+'/pound.test.js']
+      js: [__dirname+'/precompile.test.js',
+           __dirname+'/pound.test.js']
     });
 
     t.doesNotThrow(function(){

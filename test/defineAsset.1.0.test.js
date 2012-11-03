@@ -1,10 +1,10 @@
 var pound = require('../');
-var defineAsset = null;
+var asset = null;
 
 module.exports = {
   setUp: function(callback) {
     this.P = pound.create();
-    defineAsset = this.P.defineAsset;
+    asset = this.P.defineAsset;
     callback();
   },
 
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   defineAsset: function(t) {
-    defineAsset({ name: 'app'}, {
+    asset({ name: 'app'}, {
       js: ['$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', {ns: {}}],
       css: [ undefined, '$css/ok']
     });
@@ -31,12 +31,12 @@ module.exports = {
   },
 
   defineAssetExtend: function(t) {
-    defineAsset({ name: 'app'}, {
+    asset({ name: 'app'}, {
       js: ['$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', {ns: {}}],
       css: [ undefined, '$css/ok']
     });
 
-    defineAsset({ name: 'app_pro', extend:'app'}, {
+    asset({ name: 'app_pro', extend:'app'}, {
       js: ['$js/pro_features', '$js/test1']
     });
 
@@ -46,12 +46,12 @@ module.exports = {
   },
 
   defineAssetExtend_empty:function(t){
-    defineAsset({ name: 'app'}, {
+    asset({ name: 'app'}, {
       js: ['$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', {ns: {}}],
       css: [ undefined, '$css/ok']
     });
 
-    defineAsset({ name: 'app_pro', extend:'app'}, {
+    asset({ name: 'app_pro', extend:'app'}, {
     });
 
     t.deepEqual(this.P.assets.js.app_pro, [ '$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', { ns: {} } ]);
