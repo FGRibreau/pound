@@ -20,7 +20,7 @@
     "test": "./node_modules/grunt/bin/grunt test"
   },
   "dependencies": {
-    "piler": "git+https://github.com/FGRibreau/piler.git",
+    "bundle-up": "git+https://github.com/FGRibreau/bundle-up.git",
     "lodash": "~0.3.2",
     "jade": "~0.27.2"
   },
