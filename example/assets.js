@@ -2,8 +2,17 @@
 * Specify the assets
 */
 
-var pound              = require('../') // or require('pound') in your case
-,   defineAsset        = pound.defineAsset;
+var Pound = require('../');
+
+// Create a pound instance with mandatory parameters
+
+var pound = Pound.create({ // or require('Pound').create(...) in your case
+  publicDir: __dirname+'/public',
+  staticUrlRoot: '/'
+});
+
+// make an alias
+var asset = pound.defineAsset;
 
 // Default parameters are:
 // pound.public        = __dirname + '/public';
@@ -19,7 +28,8 @@ pound.resolve.css      = function(filename){return __dirname + '/assets/css/'+fi
 pound.resolve.myCssDir = function(filename){return __dirname + '/assets/css/'+filename+'.css';};
 pound.resolve.appjs    = function(filename){return __dirname + '/app/'+filename+'.js';};
 
-defineAsset({name:'home'}, {
+// Specify packages
+asset('home', {
   // Css assets
   css:[
     '$myCssDir/bootstrap-responsive.0.2.4'  // will resolve $js with the pound.resolve.myCssDir function
@@ -34,7 +44,7 @@ defineAsset({name:'home'}, {
   ]
 });
 
-defineAsset({name:'app', extend:'home'}, {
+asset({name:'app', extend:'home'}, {
   css:[
     '$css/global'
   ],
@@ -43,7 +53,7 @@ defineAsset({name:'app', extend:'home'}, {
     {'MyApp.env':{}} // object
   , '$js/bootbox.2.3.1'
   , '//socket.io.js' // url
-  , '$appjs/app' // Backbone.sync override
+  , '$appjs/app'
   ]
 });
 

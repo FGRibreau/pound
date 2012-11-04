@@ -3,6 +3,7 @@ assets      = require('./assets'),
 app         = express();
 
 app.configure(function() {
+
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.set('view options', {
@@ -24,4 +25,5 @@ function render(view) {return function(req, res) {res.render(view);};}
 app.get('/',    render('home'));
 app.get('/app', render('app'));
 
-app.listen(8080, function(){console.log('Express listening on 8080');});
+var port = 8081;
+app.listen(port, function(){console.log('Express listening on ', port);});
