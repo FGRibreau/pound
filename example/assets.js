@@ -47,12 +47,13 @@ asset('home', {
 asset({name:'app', extend:'home'}, {
   css:[
     '$css/global'
+  , 'http://twitter.github.com/bootstrap/assets/css/bootstrap' // global url
   ],
 
   js:[
     {'MyApp.env':{}} // object
   , '$js/bootbox.2.3.1'
-  , '//socket.io.js' // url
+  , '//socket.io' // relative url to the website root dir
   , '$appjs/app'
   ]
 });

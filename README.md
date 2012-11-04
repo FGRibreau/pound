@@ -1,8 +1,9 @@
 Pound [![Build Status](https://secure.travis-ci.org/FGRibreau/pound.png)](http://travis-ci.org/FGRibreau/pound)
 ==========
 
-High-level interface for Piler - The Awesome Asset Manager for Node.js.
-**Pound leverage Piler** in order to allow you to think of **assets in terms of packages**.
+Pound - Asset management like it should be.
+
+Pound allows you to think of **assets in terms of packages**.
 
 Pound supports **Express 2 and 3**.
 
@@ -40,17 +41,19 @@ defineAsset({name:'home'}, {
 });
 
 defineAsset({name:'app', extend:'home'}, {
-  js:[
-      {'MyApp.env':{}} // object
-    , '$js/bootbox.2.3.1'
-    , '//sio/socket.io.js' // url
-  ],
 
   css:[
+      'http://twitter.github.com/bootstrap/assets/css/bootstrap' // global url are supported
       '$css/bootstrap-responsive.0.2.4'
     , '$css/bootstrap.0.2.4'
     , '$css/font-awesome.2.0'
     , '$css/global'
+  ],
+
+  js:[
+      {'MyApp.env':{}} // object
+    , '$js/bootbox.2.3.1'
+    , '//sio/socket.io.js' // relative url are supported as well
   ]
 });
 
