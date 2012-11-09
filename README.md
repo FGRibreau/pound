@@ -1,11 +1,11 @@
 Pound [![Build Status](https://secure.travis-ci.org/FGRibreau/pound.png)](http://travis-ci.org/FGRibreau/pound)
 ==========
 
-Pound 2.0 - Asset management for NodeJS/Express like it should be
+Pound 2.0 - High-level asset management for NodeJS/Express like it should be.
 
 Pound allows you to think of **assets in terms of packages/bundles**.
 
-Pound supports **Express 2 and 3** and use [Bundle-Up](https://github.com/FGRibreau/bundle-up) as .
+Pound supports **Express 2 and 3** and use [Bundle-Up](https://github.com/FGRibreau/bundle-up) as the underlying asset manager.
 
 Npm
 ----
