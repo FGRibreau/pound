@@ -3,7 +3,7 @@ var asset = null;
 
 module.exports = {
   setUp: function(callback) {
-    this.P = pound.create();
+    this.P = pound.create({publicDir: "/public", staticUrlRoot:"/"});
     asset = this.P.defineAsset;
     callback();
   },

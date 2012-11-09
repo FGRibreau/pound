@@ -12,7 +12,7 @@ var pound = Pound.create({ // or require('Pound').create(...) in your case
 });
 
 // make an alias
-var asset = pound.defineAsset;
+var bundle = pound.defineAsset;
 
 // Default parameters are:
 // pound.public        = __dirname + '/public';
@@ -29,7 +29,7 @@ pound.resolve.myCssDir = function(filename){return __dirname + '/assets/css/'+fi
 pound.resolve.appjs    = function(filename){return __dirname + '/app/'+filename+'.js';};
 
 // Specify packages
-asset('home', {
+bundle('home', {
   // Css assets
   css:[
     '$myCssDir/bootstrap-responsive.0.2.4'  // will resolve $js with the pound.resolve.myCssDir function
@@ -44,7 +44,7 @@ asset('home', {
   ]
 });
 
-asset({name:'app', extend:'home'}, {
+bundle({name:'app', extend:'home'}, {
   css:[
     '$css/global'
   , 'http://twitter.github.com/bootstrap/assets/css/bootstrap' // global url

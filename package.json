@@ -1,7 +1,7 @@
 {
   "author": "Francois-Guillaume Ribreau <npm@fgribreau.com> (http://twitter.com/FGRibreau)",
   "name": "pound",
-  "description": "High-level interface for Piler - The Awesome Asset Manager for NodeJ",
+  "description": "Asset Manager for NodeJS/Express",
   "keywords": [
     "piler",
     "asset",
@@ -20,7 +20,7 @@
     "test": "./node_modules/grunt/bin/grunt test"
   },
   "dependencies": {
-    "bundle-up": "git+https://github.com/FGRibreau/bundle-up.git",
+    "bundle-up2": "~0.4.0",
     "lodash": "~0.3.2",
     "jade": "~0.27.2"
   },

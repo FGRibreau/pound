@@ -1,30 +1,33 @@
 Pound [![Build Status](https://secure.travis-ci.org/FGRibreau/pound.png)](http://travis-ci.org/FGRibreau/pound)
 ==========
 
-Pound - Asset management like it should be.
+Pound 2.0 - Asset management for NodeJS/Express like it should be
 
-Pound allows you to think of **assets in terms of packages**.
+Pound allows you to think of **assets in terms of packages/bundles**.
 
-Pound supports **Express 2 and 3**.
+Pound supports **Express 2 and 3** and use [Bundle-Up](https://github.com/FGRibreau/bundle-up) as .
 
 Npm
 ----
     npm install pound
-
 
 Basic usage
 ------------
 
 **example/server_simple.js**
 ```javascript
-var express     = require('express')
-,   pound       = require('pound')
-,   defineAsset = pound.defineAsset;
+var express = require('express')
+,   Pound   = require('pound')
+,   bundle  = pound.defineAsset; // alias
 
 // Define where is the public directory
-pound.publicDir = __dirname + '/public';
+var pound = Pound.create({
+  publicDir: __dirname+'/public',
+  staticUrlRoot: '/'
+});
 
-defineAsset({name:'home'}, {
+// By default all bundle's assets are public (if another inherit from it, it'll get all of those assets)
+bundle('home', {
   // Css assets
   css:[
     '$css/bootstrap-responsive.0.2.4'  // will resolve $js with the pound.resolve.css function
@@ -40,7 +43,7 @@ defineAsset({name:'home'}, {
   ]
 });
 
-defineAsset({name:'app', extend:'home'}, {
+bundle({name:'app', extend:'home'}, {
 
   css:[
       'http://twitter.github.com/bootstrap/assets/css/bootstrap' // global url are supported
@@ -70,6 +73,9 @@ app.configure(function(){
     // Assets configuration
     pound.configure(app);
 
+    // pound.configure(app, [callback on complete])
+    // the callback will be called Pound is ready.
+
     app.use(express.static(__dirname + '/public'));
 });
 
@@ -86,14 +92,14 @@ app.listen(8080, function(){console.log('Express listening on', app.address().po
 !!! 5
 html
   head
-    title Pound/Piler rocks !
-    !{renderStyleTags("home")}
+    title Pound rocks !
+    !{renderStyle("home")}
   body
     p Look at the source code and then try to start the server with
       <pre>NODE_ENV=production node server.js</pre>
     a(href="/app") Go the app page (with app assets)
 
-    !{renderScriptTags("home")}
+    !{renderScript("home")}
 ```
 
 **example/view/app.jade**
@@ -101,14 +107,14 @@ html
 !!! 5
 html
   head
-    title Pound/Piler rocks !
-    !{renderStyleTags("app")}
+    title Pound rocks !
+    !{renderStyle("app")}
   body
     p Look at the source code and then try to start the server with
       <pre>NODE_ENV=production node server.js</pre>
     a(href="/") Go the homepage (with the home assets)
 
-    !{renderScriptTags("app")}
+    !{renderScript("app")}
 ```
 
 
@@ -153,7 +159,7 @@ app.listen(8080, function(){console.log('Express listening on', app.address().po
 */
 
 var pound              = require('pound')
-,   defineAsset        = pound.defineAsset;
+,   bundle             = pound.defineAsset;
 
 // Default parameters are:
 // pound.public        = __dirname + '/public';
@@ -169,7 +175,7 @@ pound.resolve.css      = function(filename){return __dirname + '/assets/css/'+fi
 pound.resolve.myCssDir = function(filename){return __dirname + '/assets/css/'+filename+'.css';};
 pound.resolve.appjs    = function(filename){return __dirname + '/app/'+filename+'.js';};
 
-defineAsset({name:'home'}, {
+bundle('home', {
   // Css assets
   css:[
     '$myCssDir/bootstrap-responsive.0.2.4'  // will resolve $js with the pound.resolve.myCssDir function
@@ -184,7 +190,7 @@ defineAsset({name:'home'}, {
   ]
 });
 
-defineAsset({name:'app', extend:'home'}, {
+bundle({name:'app', extend:'home'}, {
   css:[
     '$css/global'
   ],
@@ -201,6 +207,32 @@ module.exports = pound;
 ```
 
 `views/app.jade` and `view/home.jade` are the same as mentionned in the **simple usage**
+
+Oh wait... and it supports OO-style inheritance
+-----------------------------------------------
+
+```javascript
+
+bundle('app', {
+  public:{
+    // this will be available to `app` bundle and bundles that inherit from it.
+    js:['$js/jquery', '$js/jqueryui', '$js/baseApp'],
+    css:['$css/global']
+  },
+
+  private:{
+    // the following assets will only be available from the home bundle
+    js:['$js/upgrade']
+  }
+});
+
+bundle({name:'apppremium', extend:'app'}, {
+  public:{
+    js:['$js/premiumextensions']
+  }
+});
+
+```
 
 
 License
