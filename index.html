@@ -18,7 +18,7 @@
     <div class="wrapper">
       <header>
         <h1>Pound</h1>
-        <p>High-level interface for Piler - The Awesome Asset Manager for Node.js</p>
+        <p>Pound - High-level asset Manager for Node.js/Express</p>
         <p class="view"><a href="https://github.com/FGRibreau/pound">View the Project on GitHub <small>FGRibreau/pound</small></a></p>
         <ul>
           <li><a href="https://github.com/FGRibreau/pound/zipball/master">Download <strong>ZIP File</strong></a></li>
@@ -30,8 +30,11 @@
         <h1>Pound <a href="http://travis-ci.org/FGRibreau/pound"><img src="https://secure.travis-ci.org/FGRibreau/pound.png" alt="Build Status"></a>
 </h1>
 
-<p>High-level interface for Piler - The Awesome Asset Manager for Node.js.
-<strong>Pound leverage Piler</strong> in order to allow you to think of <strong>assets in terms of packages</strong>.</p>
+<p>Pound 2.0 - High-level asset management for NodeJS/Express like it should be.</p>
+
+<p>Pound allows you to think of <strong>assets in terms of packages/bundles</strong>.</p>
+
+<p>Pound supports <strong>Express 2 and 3</strong> and use <a href="https://github.com/FGRibreau/bundle-up">Bundle-Up</a> as the underlying asset manager.</p>
 
 <h2>Npm</h2>
 
@@ -42,15 +45,18 @@
 
 <p><strong>example/server_simple.js</strong></p>
 
-<div class="highlight">
-<pre><span class="kd">var</span> <span class="nx">express</span>     <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">)</span>
-<span class="p">,</span>   <span class="nx">pound</span>       <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'pound'</span><span class="p">)</span>
-<span class="p">,</span>   <span class="nx">defineAsset</span> <span class="o">=</span> <span class="nx">pound</span><span class="p">.</span><span class="nx">defineAsset</span><span class="p">;</span>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">)</span>
+<span class="p">,</span>   <span class="nx">Pound</span>   <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'pound'</span><span class="p">)</span>
+<span class="p">,</span>   <span class="nx">bundle</span>  <span class="o">=</span> <span class="nx">pound</span><span class="p">.</span><span class="nx">defineAsset</span><span class="p">;</span> <span class="c1">// alias</span>
 
 <span class="c1">// Define where is the public directory</span>
-<span class="nx">pound</span><span class="p">.</span><span class="nx">publicDir</span> <span class="o">=</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">'/public'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">pound</span> <span class="o">=</span> <span class="nx">Pound</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="nx">publicDir</span><span class="o">:</span> <span class="nx">__dirname</span><span class="o">+</span><span class="s1">'/public'</span><span class="p">,</span>
+  <span class="nx">staticUrlRoot</span><span class="o">:</span> <span class="s1">'/'</span>
+<span class="p">});</span>
 
-<span class="nx">defineAsset</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="s1">'home'</span><span class="p">},</span> <span class="p">{</span>
+<span class="c1">// By default all bundle's assets are public (if another inherit from it, it'll get all of those assets)</span>
+<span class="nx">bundle</span><span class="p">(</span><span class="s1">'home'</span><span class="p">,</span> <span class="p">{</span>
   <span class="c1">// Css assets</span>
   <span class="nx">css</span><span class="o">:</span><span class="p">[</span>
     <span class="s1">'$css/bootstrap-responsive.0.2.4'</span>  <span class="c1">// will resolve $js with the pound.resolve.css function</span>
@@ -66,18 +72,20 @@
   <span class="p">]</span>
 <span class="p">});</span>
 
-<span class="nx">defineAsset</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="s1">'app'</span><span class="p">,</span> <span class="nx">extend</span><span class="o">:</span><span class="s1">'home'</span><span class="p">},</span> <span class="p">{</span>
-  <span class="nx">js</span><span class="o">:</span><span class="p">[</span>
-      <span class="p">{</span><span class="s1">'MyApp.env'</span><span class="o">:</span><span class="p">{}}</span> <span class="c1">// object</span>
-    <span class="p">,</span> <span class="s1">'$js/bootbox.2.3.1'</span>
-    <span class="p">,</span> <span class="s1">'//sio/socket.io.js'</span> <span class="c1">// url</span>
-  <span class="p">],</span>
+<span class="nx">bundle</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="s1">'app'</span><span class="p">,</span> <span class="nx">extend</span><span class="o">:</span><span class="s1">'home'</span><span class="p">},</span> <span class="p">{</span>
 
   <span class="nx">css</span><span class="o">:</span><span class="p">[</span>
+      <span class="s1">'http://twitter.github.com/bootstrap/assets/css/bootstrap'</span> <span class="c1">// global url are supported</span>
       <span class="s1">'$css/bootstrap-responsive.0.2.4'</span>
     <span class="p">,</span> <span class="s1">'$css/bootstrap.0.2.4'</span>
     <span class="p">,</span> <span class="s1">'$css/font-awesome.2.0'</span>
     <span class="p">,</span> <span class="s1">'$css/global'</span>
+  <span class="p">],</span>
+
+  <span class="nx">js</span><span class="o">:</span><span class="p">[</span>
+      <span class="p">{</span><span class="s1">'MyApp.env'</span><span class="o">:</span><span class="p">{}}</span> <span class="c1">// object</span>
+    <span class="p">,</span> <span class="s1">'$js/bootbox.2.3.1'</span>
+    <span class="p">,</span> <span class="s1">'//sio/socket.io.js'</span> <span class="c1">// relative url are supported as well</span>
   <span class="p">]</span>
 <span class="p">});</span>
 
@@ -94,6 +102,9 @@
     <span class="c1">// Assets configuration</span>
     <span class="nx">pound</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
 
+    <span class="c1">// pound.configure(app, [callback on complete])</span>
+    <span class="c1">// the callback will be called Pound is ready.</span>
+
     <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">'/public'</span><span class="p">));</span>
 <span class="p">});</span>
 
@@ -103,52 +114,43 @@
 <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="nx">render</span><span class="p">(</span><span class="s1">'app'</span><span class="p">));</span>
 
 <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Express listening on'</span><span class="p">,</span> <span class="nx">app</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">);});</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p><strong>example/view/home.jade</strong></p>
 
-<div class="highlight">
-<pre><span class="nn">!!! 5</span>
+<div class="highlight"><pre><span class="nn">!!! 5</span>
 <span class="nt">html</span>
   <span class="nt">head</span>
-    <span class="nt">title</span> Pound/Piler rocks !
-    <span class="err">!{</span><span class="nt">renderStyleTags</span>(<span class="err">"</span><span class="na">home</span><span class="err">"</span>)}
+    <span class="nt">title</span> Pound rocks !
+    <span class="err">!{</span><span class="nt">renderStyle</span>(<span class="err">"</span><span class="na">home</span><span class="err">"</span>)}
   <span class="nt">body</span>
     <span class="nt">p</span> Look at the source code and then try to start the server with
       <span class="err">&lt;</span><span class="nt">pre</span>&gt;NODE_ENV=production node server.js&lt;/pre&gt;
     <span class="nt">a</span>(<span class="na">href=</span><span class="s">"/app"</span>) Go the app page (with app assets)
 
-    <span class="err">!{</span><span class="nt">renderScriptTags</span>(<span class="err">"</span><span class="na">home</span><span class="err">"</span>)}
-</pre>
-</div>
-
+    <span class="err">!{</span><span class="nt">renderScript</span>(<span class="err">"</span><span class="na">home</span><span class="err">"</span>)}
+</pre></div>
 
 <p><strong>example/view/app.jade</strong></p>
 
-<div class="highlight">
-<pre><span class="nn">!!! 5</span>
+<div class="highlight"><pre><span class="nn">!!! 5</span>
 <span class="nt">html</span>
   <span class="nt">head</span>
-    <span class="nt">title</span> Pound/Piler rocks !
-    <span class="err">!{</span><span class="nt">renderStyleTags</span>(<span class="err">"</span><span class="na">app</span><span class="err">"</span>)}
+    <span class="nt">title</span> Pound rocks !
+    <span class="err">!{</span><span class="nt">renderStyle</span>(<span class="err">"</span><span class="na">app</span><span class="err">"</span>)}
   <span class="nt">body</span>
     <span class="nt">p</span> Look at the source code and then try to start the server with
       <span class="err">&lt;</span><span class="nt">pre</span>&gt;NODE_ENV=production node server.js&lt;/pre&gt;
     <span class="nt">a</span>(<span class="na">href=</span><span class="s">"/"</span>) Go the homepage (with the home assets)
 
-    <span class="err">!{</span><span class="nt">renderScriptTags</span>(<span class="err">"</span><span class="na">app</span><span class="err">"</span>)}
-</pre>
-</div>
-
+    <span class="err">!{</span><span class="nt">renderScript</span>(<span class="err">"</span><span class="na">app</span><span class="err">"</span>)}
+</pre></div>
 
 <h2>Recommended usage</h2>
 
 <p><strong>example/server.js</strong></p>
 
-<div class="highlight">
-<pre><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">),</span>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">),</span>
 <span class="nx">assets</span>      <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./assets'</span><span class="p">),</span>
 <span class="nx">app</span>         <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
 
@@ -175,19 +177,16 @@
 <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/app'</span><span class="p">,</span> <span class="nx">render</span><span class="p">(</span><span class="s1">'app'</span><span class="p">));</span>
 
 <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Express listening on'</span><span class="p">,</span> <span class="nx">app</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">);});</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p><strong>example/assets.js</strong></p>
 
-<div class="highlight">
-<pre><span class="cm">/**</span>
+<div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm">* Specify the assets</span>
 <span class="cm">*/</span>
 
 <span class="kd">var</span> <span class="nx">pound</span>              <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'pound'</span><span class="p">)</span>
-<span class="p">,</span>   <span class="nx">defineAsset</span>        <span class="o">=</span> <span class="nx">pound</span><span class="p">.</span><span class="nx">defineAsset</span><span class="p">;</span>
+<span class="p">,</span>   <span class="nx">bundle</span>             <span class="o">=</span> <span class="nx">pound</span><span class="p">.</span><span class="nx">defineAsset</span><span class="p">;</span>
 
 <span class="c1">// Default parameters are:</span>
 <span class="c1">// pound.public        = __dirname + '/public';</span>
@@ -203,7 +202,7 @@
 <span class="nx">pound</span><span class="p">.</span><span class="nx">resolve</span><span class="p">.</span><span class="nx">myCssDir</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">){</span><span class="k">return</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">'/assets/css/'</span><span class="o">+</span><span class="nx">filename</span><span class="o">+</span><span class="s1">'.css'</span><span class="p">;};</span>
 <span class="nx">pound</span><span class="p">.</span><span class="nx">resolve</span><span class="p">.</span><span class="nx">appjs</span>    <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">){</span><span class="k">return</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">'/app/'</span><span class="o">+</span><span class="nx">filename</span><span class="o">+</span><span class="s1">'.js'</span><span class="p">;};</span>
 
-<span class="nx">defineAsset</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="s1">'home'</span><span class="p">},</span> <span class="p">{</span>
+<span class="nx">bundle</span><span class="p">(</span><span class="s1">'home'</span><span class="p">,</span> <span class="p">{</span>
   <span class="c1">// Css assets</span>
   <span class="nx">css</span><span class="o">:</span><span class="p">[</span>
     <span class="s1">'$myCssDir/bootstrap-responsive.0.2.4'</span>  <span class="c1">// will resolve $js with the pound.resolve.myCssDir function</span>
@@ -218,7 +217,7 @@
   <span class="p">]</span>
 <span class="p">});</span>
 
-<span class="nx">defineAsset</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="s1">'app'</span><span class="p">,</span> <span class="nx">extend</span><span class="o">:</span><span class="s1">'home'</span><span class="p">},</span> <span class="p">{</span>
+<span class="nx">bundle</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="s1">'app'</span><span class="p">,</span> <span class="nx">extend</span><span class="o">:</span><span class="s1">'home'</span><span class="p">},</span> <span class="p">{</span>
   <span class="nx">css</span><span class="o">:</span><span class="p">[</span>
     <span class="s1">'$css/global'</span>
   <span class="p">],</span>
@@ -232,11 +231,33 @@
 <span class="p">});</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">pound</span><span class="p">;</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p><code>views/app.jade</code> and <code>view/home.jade</code> are the same as mentionned in the <strong>simple usage</strong></p>
+
+<h2>Oh wait... and it supports OO-style inheritance</h2>
+
+<div class="highlight"><pre>
+<span class="nx">bundle</span><span class="p">(</span><span class="s1">'app'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="kr">public</span><span class="o">:</span><span class="p">{</span>
+    <span class="c1">// this will be available to `app` bundle and bundles that inherit from it.</span>
+    <span class="nx">js</span><span class="o">:</span><span class="p">[</span><span class="s1">'$js/jquery'</span><span class="p">,</span> <span class="s1">'$js/jqueryui'</span><span class="p">,</span> <span class="s1">'$js/baseApp'</span><span class="p">],</span>
+    <span class="nx">css</span><span class="o">:</span><span class="p">[</span><span class="s1">'$css/global'</span><span class="p">]</span>
+  <span class="p">},</span>
+
+  <span class="kr">private</span><span class="o">:</span><span class="p">{</span>
+    <span class="c1">// the following assets will only be available from the home bundle</span>
+    <span class="nx">js</span><span class="o">:</span><span class="p">[</span><span class="s1">'$js/upgrade'</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">bundle</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="s1">'apppremium'</span><span class="p">,</span> <span class="nx">extend</span><span class="o">:</span><span class="s1">'app'</span><span class="p">},</span> <span class="p">{</span>
+  <span class="kr">public</span><span class="o">:</span><span class="p">{</span>
+    <span class="nx">js</span><span class="o">:</span><span class="p">[</span><span class="s1">'$js/premiumextensions'</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+</pre></div>
 
 <h2>License</h2>
 
@@ -265,7 +286,7 @@ THE SOFTWARE.</p>
       <p>Project maintained by <a href="https://github.com/FGRibreau">FGRibreau</a></p>
       <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
     </footer>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
