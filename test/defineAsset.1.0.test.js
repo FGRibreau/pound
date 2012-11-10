@@ -18,14 +18,9 @@ module.exports = {
       css: [ undefined, '$css/ok']
     });
 
-    t.deepEqual(this.P.assets, {
-      js: {
-        app: ['$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', {ns: {}}]
-      },
-      css: {
-        app: ['$css/ok']
-      }
-    });
+    t.deepEqual(this.P.assets.js.app, ['$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', {ns: {}}]);
+
+    t.deepEqual(this.P.assets.css.app, ['$css/ok']);
 
     t.done();
   },
@@ -37,10 +32,13 @@ module.exports = {
     });
 
     asset({ name: 'app_pro', extend:'app'}, {
-      js: ['$js/pro_features', '$js/test1']
+      js: ['$js/pro_features', '$js/test1'],
+      css: [ '$css/ok2']
     });
 
     t.deepEqual(this.P.assets.js.app_pro, [ '$js/test', '$js/test1', '//domain.com/res.js', '$js/test2', { ns: {} }, '$js/pro_features' ]);
+    t.deepEqual(this.P.assets.css.app_pro, ['$css/ok', '$css/ok2']);
+
 
     t.done();
   },

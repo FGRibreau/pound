@@ -234,6 +234,20 @@ bundle({name:'apppremium', extend:'app'}, {
 
 ```
 
+One more thing... Asset precompilation
+--------------------------------------
+
+```javascript
+
+//
+// add some assets via pound.defineAsset
+//
+
+pound.precompile(function(){
+  console.log('Asset compilation & minifying done.');
+})
+```
+
 
 License
 -------
