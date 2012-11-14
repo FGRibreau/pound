@@ -9,7 +9,7 @@
     "public",
     "resource"
   ],
-  "version": "2.0.4",
+  "version": "2.0.5",
   "homepage": "https://fgribreau.github.com/pound/",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "test": "./node_modules/grunt/bin/grunt test"
   },
   "dependencies": {
-    "bundle-up2": "~0.4.0",
+    "bundle-up2": "~0.4.1",
     "lodash": "~0.3.2",
     "jade": "~0.27.2"
   },
