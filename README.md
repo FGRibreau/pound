@@ -1,4 +1,4 @@
-Pound [![Build Status](https://secure.travis-ci.org/FGRibreau/pound.png)](http://travis-ci.org/FGRibreau/pound)
+Pound [![Build Status](https://secure.travis-ci.org/FGRibreau/pound.png)](http://travis-ci.org/FGRibreau/pound) [![Gittip](http://badgr.co/gittip/fgribreau.png)](https://www.gittip.com/fgribreau/)
 ==========
 
 Pound 2.0 - High-level asset management for NodeJS/Express like it should be.
