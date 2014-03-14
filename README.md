@@ -30,7 +30,7 @@ var pound = Pound.create({
 bundle('home', {
   // Css assets
   css:[
-    '$css/bootstrap-responsive.0.2.4'  // will resolve $js with the pound.resolve.css function
+    '$css/bootstrap-responsive.0.2.4'  // will resolve $css with the pound.resolve.css function
   , '$css/bootstrap.0.2.4'
   , '$css/font-awesome.2.0'
   , '$css/global'
