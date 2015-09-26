@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "bundle-up2": "1.x.x",
-    "debug": "^2.2.0",
+    "debug": "2.x.x",
     "jade": "~0.27.2",
     "lodash": "~0.3.2"
   },
