@@ -93,13 +93,13 @@ app.listen(8080, function(){console.log('Express listening on', app.address().po
 html
   head
     title Pound rocks !
-    !{renderStyle("home")}
+    !{renderStyles("home")}
   body
     p Look at the source code and then try to start the server with
       <pre>NODE_ENV=production node server.js</pre>
     a(href="/app") Go the app page (with app assets)
 
-    !{renderScript("home")}
+    !{renderJs("home")}
 ```
 
 **example/view/app.jade**
@@ -108,13 +108,13 @@ html
 html
   head
     title Pound rocks !
-    !{renderStyle("app")}
+    !{renderStyles("app")}
   body
     p Look at the source code and then try to start the server with
       <pre>NODE_ENV=production node server.js</pre>
     a(href="/") Go the homepage (with the home assets)
 
-    !{renderScript("app")}
+    !{renderJs("app")}
 ```
 
 
